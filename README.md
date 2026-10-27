@@ -2,8 +2,11 @@
 
 A macOS popup when Claude Code needs approval, asks a question, wants MCP input, or finishes a response. It works from any terminal; clicking the popup opens the project in Cursor or VS Code.
 
+## Install
+
 ```text
-/plugin install ping-me@plugins
+/plugin marketplace add le0u0/community
+/plugin install ping-me@community
 ```
 
 Requires macOS 13+, Node.js 18+ and Apple Command Line Tools (`xcode-select --install`).
