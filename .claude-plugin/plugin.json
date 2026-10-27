@@ -1,0 +1,10 @@
+{
+  "name": "agent-notifier",
+  "version": "1.1.1",
+  "description": "macOS alerts for Claude Code questions, approvals, and responses from any terminal, with click-to-open Cursor or VS Code.",
+  "author": {
+    "name": "Leo Ho"
+  },
+  "repository": "https://github.com/le0u0/ping-me",
+  "license": "MIT"
+}
