@@ -5,8 +5,8 @@ A macOS popup when Claude Code needs approval, asks a question, wants MCP input,
 ## Install
 
 ```text
-/plugin marketplace add le0u0/community
-/plugin install ping-me@community
+/plugin marketplace add le0u0/le0u0.ai
+/plugin install ping-me@le0u0.ai
 ```
 
 Requires macOS 13+, Node.js 18+ and Apple Command Line Tools (`xcode-select --install`).
