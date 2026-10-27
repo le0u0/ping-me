@@ -1,0 +1,16 @@
+{
+  "name": "ping-me",
+  "description": "macOS alerts for Claude Code questions, approvals, and responses from any terminal, with click-to-open Cursor or VS Code.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/le0u0/ping-me.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
