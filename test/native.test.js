@@ -73,7 +73,7 @@ test(
   { skip: process.platform !== "darwin" },
   () => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), "native-test-"));
-    const executable = path.join(directory, "AgentNotifier");
+    const executable = path.join(directory, "PingMe");
     const nativeDirectory = path.join(__dirname, "..", "native");
     const compile = spawnSync(
       "/usr/bin/swiftc",
@@ -101,7 +101,7 @@ test(
     assert.equal(compile.status, 0, compile.stderr);
     const run = spawnSync(executable, ["--self-test"], { encoding: "utf8" });
     assert.equal(run.status, 0, run.stderr);
-    assert.equal(run.stdout, "AgentNotifier OK\n");
+    assert.equal(run.stdout, "PingMe OK\n");
 
     fs.rmSync(directory, { recursive: true });
   }

@@ -2,11 +2,11 @@
 set -eu
 
 plugin_directory="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
-base="$HOME/Library/Application Support/AgentNotifierIcon"
-installed="$base/Agent Notifier.app"
+base="$HOME/Library/Application Support/PingMeIcon"
+installed="$base/Ping Me.app"
 # Include source and icon contents so plugin updates also update the popup engine.
 fingerprint="$(cat "$plugin_directory"/native/*.swift "$plugin_directory/native/Info.plist" "$plugin_directory/assets/notifier-icon.png" "$0" | shasum -a 256 | cut -d ' ' -f 1)"
-if [ -x "$installed/Contents/MacOS/AgentNotifier" ] && [ -f "$installed/Contents/Resources/build-fingerprint" ] && [ "$(cat "$installed/Contents/Resources/build-fingerprint")" = "$fingerprint" ]; then
+if [ -x "$installed/Contents/MacOS/PingMe" ] && [ -f "$installed/Contents/Resources/build-fingerprint" ] && [ "$(cat "$installed/Contents/Resources/build-fingerprint")" = "$fingerprint" ]; then
   echo "Custom popup is already up to date."
   exit 0
 fi
@@ -17,9 +17,9 @@ fi
 mkdir -p "$base"
 staging="$(mktemp -d "$base/build.XXXXXX")"
 trap 'rm -rf "$staging"' EXIT HUP INT TERM
-app="$staging/Agent Notifier.app"
+app="$staging/Ping Me.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
-xcrun swiftc -module-cache-path "$staging/module-cache" "$plugin_directory"/native/*.swift -o "$app/Contents/MacOS/AgentNotifier" -framework AppKit
+xcrun swiftc -module-cache-path "$staging/module-cache" "$plugin_directory"/native/*.swift -o "$app/Contents/MacOS/PingMe" -framework AppKit
 cp "$plugin_directory/native/Info.plist" "$app/Contents/Info.plist"
 iconset="$staging/Notifier.iconset"
 mkdir -p "$iconset"
@@ -32,7 +32,7 @@ iconutil -c icns "$iconset" -o "$app/Contents/Resources/Notifier.icns"
 printf '%s\n' "$fingerprint" > "$app/Contents/Resources/build-fingerprint"
 codesign --force --deep --sign - "$app"
 codesign --verify --deep --strict "$app"
-"$app/Contents/MacOS/AgentNotifier" --self-test
+"$app/Contents/MacOS/PingMe" --self-test
 # Keep the previous helper if building or verification fails.
 if [ -d "$installed" ]; then mv "$installed" "$staging/previous.app"; fi
 if ! mv "$app" "$installed"; then

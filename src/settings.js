@@ -63,7 +63,7 @@ function mergeHooks(settings, hookPath) {
 }
 
 function writeSettings(settingsPath, settings) {
-  const temporary = `${settingsPath}.agent-notifier.tmp`;
+  const temporary = `${settingsPath}.ping-me.tmp`;
   fs.writeFileSync(temporary, `${JSON.stringify(settings, null, 2)}\n`, { mode: 0o600 });
   fs.renameSync(temporary, settingsPath);
 }

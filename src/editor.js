@@ -6,7 +6,7 @@ const editors = { cursor: "Cursor", vscode: "Visual Studio Code" };
 
 function editorName() {
   const editor = preferences().editor;
-  if (!Object.hasOwn(editors, editor)) throw new Error("Invalid editor setting. Run /agent-notifier:init.");
+  if (!Object.hasOwn(editors, editor)) throw new Error("Invalid editor setting. Run /ping-me:init.");
   return editors[editor];
 }
 

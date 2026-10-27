@@ -1,6 +1,6 @@
 ---
 name: duration
-description: Choose how many seconds Agent Notifier popups stay visible on macOS; default is 5 seconds.
+description: Choose how many seconds Ping Me popups stay visible on macOS; default is 5 seconds.
 ---
 
 Configure this plugin's custom popup.
@@ -14,7 +14,7 @@ Configure this plugin's custom popup.
 3. Save with `node "${CLAUDE_PLUGIN_ROOT}/src/preferences.js" --duration SECONDS`.
    Run `--show` again to verify the saved value.
 4. Run `node "${CLAUDE_PLUGIN_ROOT}/src/init.js" --check`. If the popup helper is
-   missing, tell the user to run `/agent-notifier:init` first. Otherwise run
+   missing, tell the user to run `/ping-me:init` first. Otherwise run
    `node "${CLAUDE_PLUGIN_ROOT}/src/init.js" --test` once and ask the user to confirm it
    stays visible for the selected duration.
 

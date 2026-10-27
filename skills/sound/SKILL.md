@@ -1,6 +1,6 @@
 ---
 name: sound
-description: List, preview, and choose the macOS notification sound for Agent Notifier, including silence.
+description: List, preview, and choose the macOS notification sound for Ping Me, including silence.
 ---
 
 Open the picker for the user with `--pick`.
@@ -17,7 +17,7 @@ Open the picker for the user with `--pick`.
 4. If `--pick` fails, report the error and fall back to flags: `--list-sounds` for the
    names, `--preview "NAME"` to play one, `--sound "NAME"` to save (`Silent` mutes).
    `--choose` needs a real terminal, so run it only inside the picker window.
-5. If `AGENT_NOTIFIER_SOUND` is set in the Claude process, that environment override wins
+5. If `PING_ME_SOUND` is set in the Claude process, that environment override wins
    (empty means mute) and changes only after Claude restarts. Leave it in place unless the
    user says to remove it.
 

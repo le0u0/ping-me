@@ -8,8 +8,8 @@ const { editorName } = require("./editor");
 const { preferences, durationSeconds, soundName } = require("./preferences");
 
 function notifierPath() {
-  return process.env.AGENT_NOTIFIER_PATH ||
-    path.join(os.homedir(), "Library/Application Support/AgentNotifierIcon/Agent Notifier.app/Contents/MacOS/AgentNotifier");
+  return process.env.PING_ME_PATH ||
+    path.join(os.homedir(), "Library/Application Support/PingMeIcon/Ping Me.app/Contents/MacOS/PingMe");
 }
 
 function notify(signal) {
@@ -25,20 +25,20 @@ function notify(signal) {
       "--project-path", signal.cwd,
       "--editor", editor,
       "--duration", String(durationSeconds(config.duration)),
-      "--sound", soundName(process.env.AGENT_NOTIFIER_SOUND ?? config.sound)
+      "--sound", soundName(process.env.PING_ME_SOUND ?? config.sound)
     ];
-    if (!fs.existsSync(notifierPath())) throw new Error("Popup helper missing. Run /agent-notifier:init.");
+    if (!fs.existsSync(notifierPath())) throw new Error("Popup helper missing. Run /ping-me:init.");
   } catch (error) {
-    process.stderr.write(`Agent Notifier: ${error.message}\n`);
+    process.stderr.write(`Ping Me: ${error.message}\n`);
     return false;
   }
   // LaunchServices returns immediately; the popup owns its timer, not the hook.
-  const result = process.env.AGENT_NOTIFIER_PATH
+  const result = process.env.PING_ME_PATH
     ? spawnSync(notifierPath(), args, { encoding: "utf8", timeout: 10000 })
     : spawnSync("/usr/bin/open", ["-g", "-n", "-a", path.resolve(notifierPath(), "../../.."), "--args", ...args],
       { encoding: "utf8", timeout: 10000 });
   if (result.error || result.status !== 0) {
-    process.stderr.write(`Agent Notifier: ${result.error?.message || result.stderr || "notification failed"}\nRun /agent-notifier:init to check setup.\n`);
+    process.stderr.write(`Ping Me: ${result.error?.message || result.stderr || "notification failed"}\nRun /ping-me:init to check setup.\n`);
     return false;
   }
   return true;

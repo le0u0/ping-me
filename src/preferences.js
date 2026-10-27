@@ -7,7 +7,7 @@ const readline = require("node:readline");
 const { spawn, spawnSync } = require("node:child_process");
 
 function configPath() {
-  return path.join(process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), ".claude"), "agent-notifier.json");
+  return path.join(process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), ".claude"), "ping-me.json");
 }
 
 function savedPreferences() {
@@ -134,7 +134,7 @@ if (require.main === module) {
     } else if (mode === "--pick") {
       // Claude Code's prompt has no TTY, so the picker needs a Terminal window of its own.
       // Terminal runs a handed-over script without the Automation permission Apple events need.
-      const launcher = path.join(os.tmpdir(), "agent-notifier-sound-picker.command");
+      const launcher = path.join(os.tmpdir(), "ping-me-sound-picker.command");
       // Close only the window running this script, matched by tty, so no other window is hit.
       const script = [
         "#!/bin/sh",

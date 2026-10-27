@@ -5,7 +5,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let input: NotificationInput
     var panel: NSPanel?
     var sound: NSSound?
-    let replacement = Notification.Name("com.le0u0.agent-notifier.replace-popup")
+    let replacement = Notification.Name("com.le0u0.ping-me.replace-popup")
     let identity = String(ProcessInfo.processInfo.processIdentifier)
 
     init(input: NotificationInput) {
@@ -105,7 +105,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 }
 
 if CommandLine.arguments.contains("--self-test") {
-    print("AgentNotifier OK")
+    print("PingMe OK")
     exit(0)
 }
 guard let input = parseArguments(CommandLine.arguments) else {

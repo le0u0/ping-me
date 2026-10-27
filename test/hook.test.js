@@ -38,7 +38,7 @@ test("launches the popup helper for a supported hook event", async () => {
     encoding: "utf8",
     env: {
       ...process.env,
-      AGENT_NOTIFIER_PATH: notifier,
+      PING_ME_PATH: notifier,
       CLAUDE_CONFIG_DIR: directory,
       NOTIFIER_LOG: log
     }
@@ -77,7 +77,7 @@ test("does nothing for an unsupported hook event", () => {
     encoding: "utf8",
     env: {
       ...process.env,
-      AGENT_NOTIFIER_PATH: path.join(directory, "notifier"),
+      PING_ME_PATH: path.join(directory, "notifier"),
       CLAUDE_CONFIG_DIR: directory,
       NOTIFIER_LOG: log
     }
@@ -95,7 +95,7 @@ test("fails for invalid JSON input", () => {
     encoding: "utf8",
     env: {
       ...process.env,
-      AGENT_NOTIFIER_PATH: path.join(directory, "notifier")
+      PING_ME_PATH: path.join(directory, "notifier")
     }
   });
 
@@ -107,8 +107,8 @@ test("notification failure reports setup instructions without blocking Claude", 
   const result = spawnSync(process.execPath, [hookPath], {
     input: JSON.stringify({ hook_event_name: "PermissionRequest", tool_name: "Bash" }),
     encoding: "utf8",
-    env: { ...process.env, AGENT_NOTIFIER_PATH: "/nonexistent/notifier" }
+    env: { ...process.env, PING_ME_PATH: "/nonexistent/notifier" }
   });
   assert.equal(result.status, 0);
-  assert.match(result.stderr, /agent-notifier:init/);
+  assert.match(result.stderr, /ping-me:init/);
 });

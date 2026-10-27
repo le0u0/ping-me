@@ -11,7 +11,7 @@ test("builds the popup without Homebrew, skips unchanged builds and preserves he
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "notifier-icon-"));
   try {
     const bin = path.join(directory, "bin");
-    const app = path.join(directory, "Library/Application Support/AgentNotifierIcon/Agent Notifier.app");
+    const app = path.join(directory, "Library/Application Support/PingMeIcon/Ping Me.app");
     fs.mkdirSync(bin);
     fs.mkdirSync(path.join(app, "Contents/MacOS"), { recursive: true });
     fs.writeFileSync(path.join(app, "Contents/MacOS/terminal-notifier"), "old helper");
@@ -26,7 +26,7 @@ test("builds the popup without Homebrew, skips unchanged builds and preserves he
     assert.equal(fs.readFileSync(path.join(app, "Contents/MacOS/terminal-notifier"), "utf8"), "old helper");
     const first = run();
     assert.equal(first.status, 0, first.stderr);
-    assert.ok(fs.existsSync(path.join(app, "Contents/MacOS/AgentNotifier")));
+    assert.ok(fs.existsSync(path.join(app, "Contents/MacOS/PingMe")));
     const second = run();
     assert.equal(second.status, 0, second.stderr);
     assert.match(second.stdout, /already up to date/);

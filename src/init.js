@@ -38,7 +38,7 @@ if (mode === "--icon") {
   const cwd = process.cwd();
   process.exitCode = notify({
     id: "init-test", cwd,
-    title: "Agent Notifier: setup test",
+    title: "Ping Me: setup test",
     subtitle: path.basename(cwd),
     body: "Click this notification to open this project in your selected editor."
   }) ? 0 : 1;
@@ -62,7 +62,7 @@ if (mode === "--icon") {
     }
   }
 } else if (mode === "--uninstall") {
-  const helperDirectory = path.join(os.homedir(), "Library/Application Support/AgentNotifierIcon");
+  const helperDirectory = path.join(os.homedir(), "Library/Application Support/PingMeIcon");
   for (const target of [helperDirectory, configPath()]) {
     const found = fs.existsSync(target);
     fs.rmSync(target, { recursive: true, force: true });

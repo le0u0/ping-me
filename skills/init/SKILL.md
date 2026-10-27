@@ -1,6 +1,6 @@
 ---
 name: init
-description: Set up Agent Notifier: build the popup, choose the editor, migrate old hooks.
+description: Set up Ping Me: build the popup, choose the editor, migrate old hooks.
 disable-model-invocation: true
 ---
 
@@ -10,7 +10,7 @@ Keep the working directory at the user's project so the test opens that folder.
    If tools are missing, guide the user through `xcode-select --install` and wait
    for installation. Windows is unsupported.
 2. Run `node "${CLAUDE_PLUGIN_ROOT}/src/init.js" --icon` to build or refresh
-   `~/Library/Application Support/AgentNotifierIcon/Agent Notifier.app`.
+   `~/Library/Application Support/PingMeIcon/Ping Me.app`.
    Unchanged builds are reused. Then run `node "${CLAUDE_PLUGIN_ROOT}/src/init.js" --check`.
    Report build or check failures.
 3. Ask which editor notification clicks should open: Cursor or VS Code, unless the
@@ -42,5 +42,5 @@ Keep the working directory at the user's project so the test opens that folder.
 
 The custom popup needs no macOS notification permission or alert style. It has no
 Notification Center history and ignores Focus. A newer popup replaces the previous one.
-Later changes go through `/agent-notifier:duration` and `/agent-notifier:sound`. Re-run
+Later changes go through `/ping-me:duration` and `/ping-me:sound`. Re-run
 init after plugin updates to rebuild the helper.
