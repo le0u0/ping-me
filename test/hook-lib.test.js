@@ -86,6 +86,7 @@ test("alerts before the interactive question picker", () => {
   });
   assert.equal(notification.title, "Notification");
   assert.equal(notification.body, "Waiting for your answer");
+  assert.equal(notificationFromHook({ hook_event_name: "PreToolUse", tool_name: "request_user_input" }).kind, "input");
   assert.equal(notificationFromHook({ hook_event_name: "PreToolUse", tool_name: "Bash" }), null);
   assert.equal(notificationFromHook({ hook_event_name: "Notification", notification_type: "idle_prompt" }), null);
 });

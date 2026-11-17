@@ -1,11 +1,11 @@
 # ping-me
 
-A macOS popup when an agent CLI needs input or finishes a response. It works from any terminal; clicking the popup opens the project in Cursor or VS Code. Supports Claude Code and Antigravity.
+A macOS popup when an agent CLI needs input or finishes a response. It works from any terminal; clicking the popup opens the project in VS Code.
+
+Supports Claude Code, Codex and Antigravity.
 
 <details>
 <summary>Claude Code</summary>
-
-## Install
 
 ```text
 /plugin marketplace add le0u0/le0u0.ai
@@ -33,9 +33,22 @@ Run `init` to build the popup, choose the editor, duration and sound, send a tes
 | Agent | Supported events |
 | --- | --- |
 | Claude Code | `PermissionRequest`, `PreToolUse` (`AskUserQuestion`), `Notification` (MCP elicitation), `Stop` |
+| Codex | `PermissionRequest`, `PreToolUse` (`request_user_input`), `Stop` |
 | Antigravity (`agy`) | `PreToolUse` (`ask_question`), `Stop` |
 
 </details>
+
+Codex question alerts depend on whether the current Codex surface exposes `request_user_input` to tool hooks. Trust the plugin's hooks in Codex before use. Codex plugins with hooks require manual distribution.
+
+### Test without installing the plugin
+
+From this checkout on macOS, build the popup helper with `node src/init.js --icon`, then run `node src/init.js --test`. To test the Codex hook payload directly:
+
+```bash
+printf '%s\n' '{"hook_event_name":"Stop","session_id":"test","cwd":"'"$PWD"'"}' | node src/hook.js
+```
+
+The popup should say “Response finished”; the command prints `{}`. Replace `Stop` with `PermissionRequest` to test approval alerts. This tests the handler, not Codex hook discovery or trust.
 
 ## Skills
 

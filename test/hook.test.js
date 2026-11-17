@@ -45,6 +45,7 @@ test("launches the popup helper for a supported hook event", async () => {
   });
 
   assert.equal(result.status, 0);
+  assert.deepEqual(JSON.parse(result.stdout), {});
   await waitForFile(log);
   assert.deepEqual(fs.readFileSync(log, "utf8").trim().split("\n"), [
     "--title",
