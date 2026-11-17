@@ -1,7 +1,7 @@
 {
   "name": "ping-me",
   "description": "macOS alerts for Claude Code questions, approvals, and responses from any terminal, with click-to-open Cursor or VS Code.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "repository": {
     "type": "git",
