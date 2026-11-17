@@ -13,7 +13,7 @@ const { removeManaged, uninstallHooks } = require("./settings");
 const mode = process.argv[2] || "--check";
 if (mode === "--icon") {
   const result = spawnSync("/bin/sh", [path.join(__dirname, "../scripts/install-icon.sh")], { stdio: "inherit" });
-  process.exitCode = result.error ? 1 : result.status || 0;
+  process.exitCode = result.error || result.status !== 0 ? (result.status || 1) : 0;
 } else if (mode === "--editor") {
   try {
     process.stdout.write(`Notification clicks will open ${saveEditor(process.argv[3])}.\n`);
@@ -32,7 +32,7 @@ if (mode === "--icon") {
     if (result.error) {
       process.stderr.write(`${result.error.message}\nBuild the popup helper with: node "${__filename}" --icon\n`);
     }
-    process.exitCode = result.error ? 1 : result.status || 0;
+    process.exitCode = result.error || result.status !== 0 ? (result.status || 1) : 0;
   }
 } else if (mode === "--test") {
   const cwd = process.cwd();

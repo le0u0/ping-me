@@ -39,6 +39,8 @@ function taskFromTranscript(transcriptPath) {
       continue;
     }
 
+    if (!entry || typeof entry !== "object") continue;
+
     const message = entry.message || entry;
     if (message.role !== "user" && entry.type !== "user") continue;
     const text = textFromContent(message.content || entry.content);
@@ -67,6 +69,7 @@ function describeTool(toolName, input) {
 }
 
 function notificationFromHook(payload) {
+  if (!payload || typeof payload !== "object") return null;
   const event = payload.hook_event_name || payload.hookEventName;
   const toolName = payload.tool_name || payload.toolCall?.name;
   const project = path.basename(payload.cwd || process.cwd()) || "project";

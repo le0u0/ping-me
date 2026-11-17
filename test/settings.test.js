@@ -83,3 +83,30 @@ test("migration preserves unrelated commands in a shared hook entry", () => {
     { type: "command", command: "keep-me" }
   ] }]), [{ matcher: "Bash", hooks: [{ type: "command", command: "keep-me" }] }]);
 });
+
+test("removeManaged skips null hook elements", () => {
+  const { removeManaged } = require("../src/settings");
+  assert.deepEqual(removeManaged([{ matcher: "Bash", hooks: [
+    null,
+    { type: "command", command: "keep-me" }
+  ] }]), [{ matcher: "Bash", hooks: [{ type: "command", command: "keep-me" }] }]);
+});
+
+test("installHooks and uninstallHooks respect CLAUDE_CONFIG_DIR by default", () => {
+  const { installHooks } = require("../src/settings");
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "settings-env-"));
+  const previous = process.env.CLAUDE_CONFIG_DIR;
+  process.env.CLAUDE_CONFIG_DIR = directory;
+  try {
+    installHooks("/tmp/hook.js");
+    const settingsPath = path.join(directory, "settings.json");
+    assert.ok(fs.existsSync(settingsPath));
+    uninstallHooks();
+    const after = JSON.parse(fs.readFileSync(settingsPath, "utf8"));
+    assert.equal(after.hooks, undefined);
+  } finally {
+    if (previous === undefined) delete process.env.CLAUDE_CONFIG_DIR;
+    else process.env.CLAUDE_CONFIG_DIR = previous;
+    fs.rmSync(directory, { recursive: true });
+  }
+});

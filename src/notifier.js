@@ -17,6 +17,12 @@ function notify(signal) {
   try {
     const editor = editorName();
     const config = preferences();
+    let sound = "";
+    try {
+      sound = soundName(process.env.PING_ME_SOUND ?? config.sound);
+    } catch {
+      sound = "";
+    }
     args = [
       "--title", signal.title,
       "--subtitle", signal.subtitle,
@@ -25,7 +31,7 @@ function notify(signal) {
       "--project-path", signal.cwd,
       "--editor", editor,
       "--duration", String(durationSeconds(config.duration)),
-      "--sound", soundName(process.env.PING_ME_SOUND ?? config.sound)
+      "--sound", sound
     ];
     if (!fs.existsSync(notifierPath())) throw new Error("Popup helper missing. Run /ping-me:init.");
   } catch (error) {

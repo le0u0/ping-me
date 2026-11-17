@@ -32,7 +32,7 @@ function removeManaged(entries) {
   return entries.flatMap((entry) => {
     if (!entry || !Array.isArray(entry.hooks)) return [entry];
     const hooks = entry.hooks.filter(
-      (hook) => !String(hook.command || "").includes(MARKER)
+      (hook) => hook && !String(hook.command || "").includes(MARKER)
     );
     return hooks.length ? [{ ...entry, hooks }] : [];
   });
@@ -62,13 +62,17 @@ function mergeHooks(settings, hookPath) {
   return next;
 }
 
+function defaultSettingsPath() {
+  return path.join(process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), ".claude"), "settings.json");
+}
+
 function writeSettings(settingsPath, settings) {
-  const temporary = `${settingsPath}.ping-me.tmp`;
+  const temporary = `${settingsPath}.${process.pid}.ping-me.tmp`;
   fs.writeFileSync(temporary, `${JSON.stringify(settings, null, 2)}\n`, { mode: 0o600 });
   fs.renameSync(temporary, settingsPath);
 }
 
-function installHooks(hookPath, settingsPath = path.join(os.homedir(), ".claude", "settings.json")) {
+function installHooks(hookPath, settingsPath = defaultSettingsPath()) {
   fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
 
   let current = {};
@@ -80,7 +84,7 @@ function installHooks(hookPath, settingsPath = path.join(os.homedir(), ".claude"
   writeSettings(settingsPath, next);
 }
 
-function uninstallHooks(settingsPath = path.join(os.homedir(), ".claude", "settings.json")) {
+function uninstallHooks(settingsPath = defaultSettingsPath()) {
   if (!fs.existsSync(settingsPath)) return;
 
   const next = JSON.parse(fs.readFileSync(settingsPath, "utf8"));
