@@ -24,5 +24,7 @@ process.stdin.on("end", () => {
   if (typeof payload.hookEventName === "string") {
     const response = payload.hookEventName === "PreToolUse" ? { decision: "allow" } : {};
     process.stdout.write(`${JSON.stringify(response)}\n`);
+  } else if (payload.hook_event_name === "Stop") {
+    process.stdout.write("{}\n");
   }
 });

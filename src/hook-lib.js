@@ -80,7 +80,7 @@ function notificationFromHook(payload) {
     };
   }
 
-  if (event === "PreToolUse" && (toolName === "AskUserQuestion" || toolName === "ask_question")) {
+  if (event === "PreToolUse" && ["AskUserQuestion", "ask_question", "request_user_input"].includes(toolName)) {
     return {
       kind: "input",
       title: "Notification",
