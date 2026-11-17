@@ -7,7 +7,7 @@ func openProject(
 ) throws {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: launcherPath)
-    process.arguments = ["-a", editor, projectPath]
+    process.arguments = ["-a", editor, "--", projectPath]
     try process.run()
     process.waitUntilExit()
 }

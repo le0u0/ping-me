@@ -165,6 +165,7 @@ test(
     assert.deepEqual(fs.readFileSync(log, "utf8").trim().split("\n"), [
       "-a",
       "Cursor",
+      "--",
       "/tmp/payments"
     ]);
 

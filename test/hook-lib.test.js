@@ -117,3 +117,23 @@ test("supports Antigravity camelCase hook payloads", () => {
     null
   );
 });
+
+test("ignores null payloads and null transcript entries", () => {
+  assert.equal(notificationFromHook(null), null);
+  assert.equal(signalFromHook(null), null);
+
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "claude-hook-null-"));
+  const transcript = path.join(directory, "session.jsonl");
+  fs.writeFileSync(
+    transcript,
+    [
+      "null",
+      JSON.stringify({
+        type: "user",
+        message: { role: "user", content: "After null" }
+      })
+    ].join("\n")
+  );
+  assert.equal(taskFromTranscript(transcript), "After null");
+  fs.rmSync(directory, { recursive: true });
+});

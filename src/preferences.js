@@ -76,6 +76,7 @@ async function chooseSound() {
     player?.kill();
     const file = files[names[index]];
     player = file ? spawn("/usr/bin/afplay", [file], { stdio: "ignore" }) : undefined;
+    player?.on("error", () => {});
   };
 
   readline.emitKeypressEvents(process.stdin);
@@ -134,7 +135,8 @@ if (require.main === module) {
     } else if (mode === "--pick") {
       // Claude Code's prompt has no TTY, so the picker needs a Terminal window of its own.
       // Terminal runs a handed-over script without the Automation permission Apple events need.
-      const launcher = path.join(os.tmpdir(), "ping-me-sound-picker.command");
+      const launcherDir = fs.mkdtempSync(path.join(os.tmpdir(), "ping-me-"));
+      const launcher = path.join(launcherDir, "ping-me-sound-picker.command");
       // Close only the window running this script, matched by tty, so no other window is hit.
       const script = [
         "#!/bin/sh",
