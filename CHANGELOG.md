@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/le0u0/ping-me/compare/ping-me-v1.1.0...ping-me-v1.2.0) (2026-11-17)
+
+
+### Features
+
+* add Codex plugin support ([1714f13](https://github.com/le0u0/ping-me/commit/1714f135059b48a41929a734275cd3e0cc81c651))
+* add Codex plugin support ([0a311b4](https://github.com/le0u0/ping-me/commit/0a311b4cf7335cc1345600b85981f1c774504609))
+
 ## [1.1.0](https://github.com/le0u0/ping-me/compare/ping-me-v1.0.0...ping-me-v1.1.0) (2026-11-17)
 
 
