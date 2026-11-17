@@ -67,7 +67,8 @@ function describeTool(toolName, input) {
 }
 
 function notificationFromHook(payload) {
-  const event = payload.hook_event_name;
+  const event = payload.hook_event_name || payload.hookEventName;
+  const toolName = payload.tool_name || payload.toolCall?.name;
   const project = path.basename(payload.cwd || process.cwd()) || "project";
 
   if (event === "Stop") {
@@ -79,7 +80,7 @@ function notificationFromHook(payload) {
     };
   }
 
-  if (event === "PreToolUse" && payload.tool_name === "AskUserQuestion") {
+  if (event === "PreToolUse" && (toolName === "AskUserQuestion" || toolName === "ask_question")) {
     return {
       kind: "input",
       title: "Notification",
@@ -124,7 +125,7 @@ function signalFromHook(payload, options = {}) {
 
   return {
     id: options.id || `${Date.now()}-${process.pid}`,
-    sessionId: payload.session_id || "",
+    sessionId: payload.session_id || payload.conversationId || "",
     cwd: payload.cwd || process.cwd(),
     ...notification
   };

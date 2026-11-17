@@ -19,7 +19,10 @@ process.stdin.on("end", () => {
   }
 
   const signal = signalFromHook(payload);
-  if (!signal) return;
+  if (signal) notify(signal);
 
-  notify(signal);
+  if (typeof payload.hookEventName === "string") {
+    const response = payload.hookEventName === "PreToolUse" ? { decision: "allow" } : {};
+    process.stdout.write(`${JSON.stringify(response)}\n`);
+  }
 });

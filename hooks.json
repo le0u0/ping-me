@@ -1,0 +1,23 @@
+{
+  "ping-me": {
+    "PreToolUse": [
+      {
+        "matcher": "ask_question",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./src/hook.js",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node ./src/hook.js",
+        "timeout": 15
+      }
+    ]
+  }
+}
