@@ -1,6 +1,6 @@
 {
   "name": "ping-me",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "macOS alerts for Claude Code questions, approvals, and responses from any terminal, with click-to-open Cursor or VS Code.",
   "author": {
     "name": "Leo Ho"

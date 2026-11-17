@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/le0u0/ping-me/compare/ping-me-v1.2.0...ping-me-v1.2.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* resolve code review findings across hook, settings, and helper ([a6f0f34](https://github.com/le0u0/ping-me/commit/a6f0f346329847a8f98491773a9860461c4436c2))
+* resolve code review findings across hook, settings, and helper ([1fa47c6](https://github.com/le0u0/ping-me/commit/1fa47c633fd13fb74a0f2a58cf544cc1c4ae418f))
+
 ## [1.2.0](https://github.com/le0u0/ping-me/compare/ping-me-v1.1.0...ping-me-v1.2.0) (2026-11-17)
 
 

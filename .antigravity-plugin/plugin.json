@@ -1,6 +1,6 @@
 {
   "name": "ping-me",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "macOS alerts for questions and responses from any terminal, with click-to-open Cursor or VS Code.",
   "logo": "assets/notifier-icon.png",
   "author": {
