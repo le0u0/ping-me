@@ -112,3 +112,43 @@ test("notification failure reports setup instructions without blocking Claude", 
   assert.equal(result.status, 0);
   assert.match(result.stderr, /ping-me:init/);
 });
+
+test("outputs Antigravity hook JSON for PreToolUse and Stop", () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "agy-hook-test-"));
+
+  const preTool = spawnSync(process.execPath, [hookPath], {
+    input: JSON.stringify({
+      hookEventName: "PreToolUse",
+      conversationId: "conv-1",
+      cwd: "/tmp/payments",
+      toolCall: { name: "run_command" }
+    }),
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PING_ME_PATH: path.join(directory, "missing-notifier"),
+      CLAUDE_CONFIG_DIR: directory
+    }
+  });
+  assert.equal(preTool.status, 0);
+  assert.deepEqual(JSON.parse(preTool.stdout), { decision: "allow" });
+
+  const stop = spawnSync(process.execPath, [hookPath], {
+    input: JSON.stringify({
+      hookEventName: "Stop",
+      conversationId: "conv-1",
+      cwd: "/tmp/payments",
+      terminationReason: "NO_TOOL_CALL"
+    }),
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      PING_ME_PATH: path.join(directory, "missing-notifier"),
+      CLAUDE_CONFIG_DIR: directory
+    }
+  });
+  assert.equal(stop.status, 0);
+  assert.deepEqual(JSON.parse(stop.stdout), {});
+
+  fs.rmSync(directory, { recursive: true });
+});

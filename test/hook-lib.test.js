@@ -8,6 +8,7 @@ const test = require("node:test");
 const {
   describeTool,
   notificationFromHook,
+  signalFromHook,
   taskFromTranscript
 } = require("../src/hook-lib");
 
@@ -87,4 +88,31 @@ test("alerts before the interactive question picker", () => {
   assert.equal(notification.body, "Waiting for your answer");
   assert.equal(notificationFromHook({ hook_event_name: "PreToolUse", tool_name: "Bash" }), null);
   assert.equal(notificationFromHook({ hook_event_name: "Notification", notification_type: "idle_prompt" }), null);
+});
+
+test("supports Antigravity camelCase hook payloads", () => {
+  const stopSignal = signalFromHook({
+    hookEventName: "Stop",
+    conversationId: "conv-42",
+    cwd: "/tmp/payments",
+    terminationReason: "NO_TOOL_CALL"
+  });
+  assert.equal(stopSignal.sessionId, "conv-42");
+  assert.equal(stopSignal.kind, "complete");
+  assert.equal(stopSignal.subtitle, "payments");
+  assert.equal(stopSignal.body, "Response finished");
+
+  const questionSignal = signalFromHook({
+    hookEventName: "PreToolUse",
+    conversationId: "conv-42",
+    cwd: "/tmp/payments",
+    toolCall: { name: "ask_question", args: {} }
+  });
+  assert.equal(questionSignal.kind, "input");
+  assert.equal(questionSignal.body, "Waiting for your answer");
+
+  assert.equal(
+    notificationFromHook({ hookEventName: "PreToolUse", toolCall: { name: "run_command" } }),
+    null
+  );
 });

@@ -1,6 +1,9 @@
 # ping-me
 
-A macOS popup when Claude Code needs approval, asks a question, wants MCP input, or finishes a response. It works from any terminal; clicking the popup opens the project in Cursor or VS Code.
+A macOS popup when an agent CLI needs input or finishes a response. It works from any terminal; clicking the popup opens the project in Cursor or VS Code. Supports Claude Code and Antigravity.
+
+<details>
+<summary>Claude Code</summary>
 
 ## Install
 
@@ -9,15 +12,30 @@ A macOS popup when Claude Code needs approval, asks a question, wants MCP input,
 /plugin install ping-me@le0u0.ai
 ```
 
-Requires macOS 13+, Node.js 18+ and Apple Command Line Tools (`xcode-select --install`).
+</details>
+
+<details>
+<summary>Antigravity (agy)</summary>
+
+```text
+agy plugin install https://github.com/le0u0/ping-me
+```
+
+</details>
 
 ## Use
 
-```text
-/ping-me:init
-```
+Run `init` to build the popup, choose the editor, duration and sound, send a test, and remove this notifier's old standalone hooks. No macOS notification permission is needed; popups skip Notification Center and ignore Focus.
 
-Restart Claude Code first. Init builds the popup, asks for the editor, duration and sound, sends a test, then removes this notifier's old standalone hooks. No macOS notification permission is needed; popups skip Notification Center and ignore Focus.
+<details>
+<summary>Supported hooks</summary>
+
+| Agent | Supported events |
+| --- | --- |
+| Claude Code | `PermissionRequest`, `PreToolUse` (`AskUserQuestion`), `Notification` (MCP elicitation), `Stop` |
+| Antigravity (`agy`) | `PreToolUse` (`ask_question`), `Stop` |
+
+</details>
 
 ## Skills
 
