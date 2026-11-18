@@ -4,12 +4,24 @@ A macOS popup when an agent CLI needs input or finishes a response. It works fro
 
 Supports Claude Code, Codex and Antigravity.
 
+## Install
+
 <details>
 <summary>Claude Code</summary>
 
-```text
-/plugin marketplace add le0u0/le0u0.ai
-/plugin install ping-me@le0u0.ai
+```bash
+claude plugin marketplace add le0u0/le0u0.ai
+claude plugin install ping-me@le0u0.ai
+```
+
+</details>
+
+<details>
+<summary>Codex</summary>
+
+```bash
+codex plugin marketplace add le0u0/le0u0.ai
+codex plugin add ping-me@le0u0-ai
 ```
 
 </details>
@@ -17,7 +29,7 @@ Supports Claude Code, Codex and Antigravity.
 <details>
 <summary>Antigravity (agy)</summary>
 
-```text
+```bash
 agy plugin install https://github.com/le0u0/ping-me
 ```
 
